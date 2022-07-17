@@ -55,4 +55,5 @@ public class Proyecto {
     public void setImagenPro(String imagenPro) {
         this.imagenPro = imagenPro;
     }
+
 }
