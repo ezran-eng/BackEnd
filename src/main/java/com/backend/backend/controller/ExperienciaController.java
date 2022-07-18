@@ -4,6 +4,7 @@ import com.backend.backend.models.Experiencia;
 import com.backend.backend.services.ExperienciaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,18 +24,21 @@ public class ExperienciaController {
         return new ResponseEntity<>(experiencias, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity<Experiencia> actualizarExperiencia(@RequestBody Experiencia experiencia){
         Experiencia updateExperiencia = experienciaService.actualizarExperiencia(experiencia);
         return new ResponseEntity<>(updateExperiencia, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<Experiencia> agregarExperiencia(@RequestBody Experiencia experiencia){
         Experiencia addExperiencia = experienciaService.addExperiencia(experiencia);
         return new ResponseEntity<>(addExperiencia, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Experiencia> eliminarExperiencia(@PathVariable Long id){
         experienciaService.borrarExperiencia(id);

@@ -5,6 +5,7 @@ import com.backend.backend.models.Proyecto;
 import com.backend.backend.services.ProyectoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,18 +26,21 @@ public class ProyectoController {
         return new ResponseEntity<>(proyectos, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity<Proyecto> actualizarProyecto(@RequestBody Proyecto proyecto){
         Proyecto updateProyecto = proyectoService.actualizarProyecto(proyecto);
         return new ResponseEntity<>(updateProyecto, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<Proyecto> agregarProyecto(@RequestBody Proyecto proyecto){
         Proyecto addProyecto = proyectoService.addProyecto(proyecto);
         return new ResponseEntity<>(addProyecto, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Proyecto> eliminarProyecto(@PathVariable Long id){
         proyectoService.borrarProyecto(id);

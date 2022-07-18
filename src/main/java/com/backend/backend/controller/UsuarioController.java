@@ -4,6 +4,7 @@ import com.backend.backend.models.Usuario;
 import com.backend.backend.services.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,6 +24,7 @@ public class UsuarioController {
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity<Usuario> actualizarUsuario(@RequestBody Usuario usuario) {
         Usuario updateUsuario = usuarioService.actualizarUsuario(usuario);
